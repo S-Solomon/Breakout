@@ -1,1 +1,3 @@
-console.log('');
+console.log('hello');
+
+// Main Game Class

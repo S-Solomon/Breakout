@@ -1,3 +1,22 @@
 node_modules
 .pdf
 .DS_Store
+dist
+
+
+  <!--
+        classes,
+        functions,
+        inheritance,
+        abstraction,
+        polymorphism,
+        encapsulation,
+        interfaces,
+        enums,
+        types,
+        generics,
+        tuples,
+        readonly
+        variables,
+        super(constructors)
+    -->
