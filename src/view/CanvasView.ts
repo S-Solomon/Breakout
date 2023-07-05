@@ -28,6 +28,33 @@ export class CanvasView {
     }
 
     drawScore(score: number): void {
-
+        if (this.scoreDisplay) this.scoreDisplay.innerHTML = score.toString();
     }
+
+    drawInfo(text: string): void {
+        if (this.info) this.info.innerHTML = text;
+    }
+
+    // fixed for all sprites
+    drawSprite(sprite: Ball | Brick | Paddle): void {
+        if (!sprite) return;
+
+
+        // possible refactor - abstract it into separate sprite class
+        // and have other sprites extend from it
+        this.context?.drawImage(
+            sprite.image,
+            sprite.pos.x,
+            sprite.pos.y,
+            sprite.width,
+            sprite.height
+        );
+    }
+
+    // draw bricks on the canvas
+    drawBricks(bricks: Brick[]): void {
+        bricks.forEach(brick => this.drawSprite(brick));
+    }
+
+
 }
