@@ -2,9 +2,16 @@ dist
 node_modules
 .pdf
 .DS_Store
+.parcel-cache
 
 
-  <!--
+
+
+
+
+
+
+<!--
         classes,
         functions,
         inheritance,
@@ -19,4 +26,4 @@ node_modules
         readonly
         variables,
         super(constructors)
-    -->
+ -->
