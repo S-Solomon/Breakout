@@ -37,3 +37,18 @@ function setGameWin(view: CanvasView) {
   view.drawInfo("Game Won");
   gameOver = false;
 }
+
+// main game loop function that continuously updates the game view
+function gameLoop(
+  view: CanvasView,
+  bricks: Brick[],
+  paddle?: Paddle,
+  ball?: Ball
+) {
+  console.log('drawing!')
+  view.clear(); // clear the canvas
+  view.drawBricks(bricks); // draw bricks
+
+  // schedules the next iteration of the game loop using requestAnimationFrame.
+  requestAnimationFrame(() => gameLoop(view, bricks));
+}
