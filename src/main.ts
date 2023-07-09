@@ -52,3 +52,20 @@ function gameLoop(
   // schedules the next iteration of the game loop using requestAnimationFrame.
   requestAnimationFrame(() => gameLoop(view, bricks));
 }
+
+// This function is called when the game is started
+function startGame(view: CanvasView) {
+  // reset displays
+  score = 0;
+  view.drawInfo("");
+  view.drawScore(0);
+
+  // create all bricks
+  const bricks = createBricks();
+
+  gameLoop(view, bricks);
+}
+
+// create a new instance of canvas view
+const view = new CanvasView("#playField");
+view.initStartButton(startGame);
