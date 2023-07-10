@@ -43,18 +43,20 @@ function gameLoop(
   view: CanvasView,
   bricks: Brick[],
   paddle: Paddle,
-  // ball?: Ball
+  ball: Ball
 ) {
   console.log('drawing!')
   view.clear(); // clear the canvas
   view.drawBricks(bricks); // draw bricks
   view.drawSprite(paddle); // draw paddle
+  view.drawSprite(ball);
+  ball.moveBall();
   paddle.movePaddle();
 
 
 
   // schedules the next iteration of the game loop using requestAnimationFrame.
-  requestAnimationFrame(() => gameLoop(view, bricks, paddle));
+  requestAnimationFrame(() => gameLoop(view, bricks, paddle, ball));
 }
 
 // This function is called when the game is started
@@ -66,6 +68,17 @@ function startGame(view: CanvasView) {
 
   // create all bricks
   const bricks = createBricks();
+
+  // create ball
+  const ball = new Ball(
+      BALL_SPEED,
+      BALL_SIZE,
+      {
+          x: BALL_STARTX,
+          y: BALL_STARTY,
+      },
+      BALL_IMAGE
+  );
 
   // create paddle instance
   const paddle = new Paddle(
@@ -80,7 +93,7 @@ function startGame(view: CanvasView) {
     view.canvas.width
   );
 
-  gameLoop(view, bricks, paddle);
+  gameLoop(view, bricks, paddle, ball);
 }
 
 // create a new instance of canvas view

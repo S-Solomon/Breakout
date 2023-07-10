@@ -38,7 +38,7 @@ export class CanvasView {
   }
 
   // fixed for all sprites
-  drawSprite(sprite: Brick | Paddle): void {
+  drawSprite(sprite: Brick | Paddle | Ball): void {
     if (!sprite) return;
 
     // possible refactor - abstract it into separate sprite class
