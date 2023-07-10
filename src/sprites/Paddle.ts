@@ -10,7 +10,9 @@ export class Paddle {
         private paddleWidth: number,
         private paddleHeight: number,
         private position: Vector,
-        image: string
+        image: string,
+        private canvasWidth: number
+
     ) {
         this.speed = speed;
         this.paddleWidth = paddleWidth;
@@ -19,6 +21,7 @@ export class Paddle {
         this.moveLeft = false;
         this.moveRight = false;
         this.paddleImage.src = image;
+        this.canvasWidth = canvasWidth;
 
         // keyboard event listeners
         document.addEventListener("keydown", this.handleKeyDown);
@@ -51,8 +54,12 @@ export class Paddle {
     }
 
     movePaddle() : void {
-        if (this.moveLeft) this.pos.x -= this.speed;
-        if (this.moveRight) this.pos.x += this.speed;
+       if (this.moveLeft && this.pos.x > 0) {
+           this.pos.x -= this.speed;
+       }
+       if (this.moveRight && this.pos.x + this.width < this.canvasWidth) {
+           this.pos.x += this.speed;
+       }
     }
 
     handleKeyUp = (event: KeyboardEvent): void => {
