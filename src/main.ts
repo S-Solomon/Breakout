@@ -42,15 +42,19 @@ function setGameWin(view: CanvasView) {
 function gameLoop(
   view: CanvasView,
   bricks: Brick[],
-  paddle?: Paddle,
+  paddle: Paddle,
   ball?: Ball
 ) {
   console.log('drawing!')
   view.clear(); // clear the canvas
   view.drawBricks(bricks); // draw bricks
+  view.drawSprite(paddle); // draw paddle
+
+
+  paddle.movePaddle();
 
   // schedules the next iteration of the game loop using requestAnimationFrame.
-  requestAnimationFrame(() => gameLoop(view, bricks));
+  requestAnimationFrame(() => gameLoop(view, bricks, paddle));
 }
 
 // This function is called when the game is started
@@ -63,7 +67,19 @@ function startGame(view: CanvasView) {
   // create all bricks
   const bricks = createBricks();
 
-  gameLoop(view, bricks);
+  // create paddle instance
+  const paddle = new Paddle(
+    PADDLE_SPEED,
+    PADDLE_WIDTH,
+    PADDLE_HEIGHT,
+    {
+      x: PADDLE_STARTX,
+      y: view.canvas.height - PADDLE_HEIGHT - 5,
+    },
+    PADDLE_IMAGE
+  );
+
+  gameLoop(view, bricks, paddle);
 }
 
 // create a new instance of canvas view
