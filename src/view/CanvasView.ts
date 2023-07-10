@@ -38,17 +38,17 @@ export class CanvasView {
   }
 
   // fixed for all sprites
-  drawSprite(brick: Brick): void {
-    if (!brick) return;
+  drawSprite(sprite: Brick | Paddle): void {
+    if (!sprite) return;
 
     // possible refactor - abstract it into separate sprite class
     // and have other sprites extend from it
     this.context?.drawImage(
-      brick.image,
-      brick.pos.x,
-      brick.pos.y,
-      brick.width,
-      brick.height
+      sprite.image,
+      sprite.pos.x,
+      sprite.pos.y,
+      sprite.width,
+      sprite.height
     );
   }
 
