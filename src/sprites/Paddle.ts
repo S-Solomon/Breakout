@@ -1,74 +1,51 @@
 import { Vector } from "../types";
+import { Sprite } from "../types";
 
-export class Paddle {
-    private paddleImage: HTMLImageElement = new Image();
-    private moveLeft: boolean;
-    private moveRight: boolean;
+export class Paddle extends Sprite {
+  private moveLeft: boolean;
+  private moveRight: boolean;
+  private speed: number;
 
-    constructor(
-        private speed: number,
-        private paddleWidth: number,
-        private paddleHeight: number,
-        private position: Vector,
-        image: string,
-        private canvasWidth: number
+  constructor(
+    speed: number,
+    paddleWidth: number,
+    paddleHeight: number,
+    position: Vector,
+    image: string,
+    private canvasWidth: number
+  ) {
+    super(paddleWidth, paddleHeight, image, position);
+    this.moveLeft = false;
+    this.moveRight = false;
+    this.speed = speed;
 
-    ) {
-        this.speed = speed;
-        this.paddleWidth = paddleWidth;
-        this.paddleHeight = paddleHeight;
-        this.position = position;
-        this.moveLeft = false;
-        this.moveRight = false;
-        this.paddleImage.src = image;
-        this.canvasWidth = canvasWidth;
+    // Keyboard event listeners
+    document.addEventListener("keydown", this.handleKeyDown.bind(this));
+    document.addEventListener("keyup", this.handleKeyUp.bind(this));
+  }
 
-        // keyboard event listeners
-        document.addEventListener("keydown", this.handleKeyDown);
-        document.addEventListener("keyup", this.handleKeyUp);
+  update(): void {}
+
+  movePaddle(): void {
+    if (this.moveLeft && this.position.x > 0) {
+      this.position.x -= this.speed;
     }
-
-    // Getters
-    get width(): number {
-        return this.paddleWidth;
+    if (this.moveRight && this.position.x + this.width < this.canvasWidth) {
+      this.position.x += this.speed;
     }
+  }
 
-    get height(): number {
-        return this.paddleHeight;
-    }
+  handleKeyUp = (event: KeyboardEvent): void => {
+    if (event.code === "ArrowLeft" || event.key === "ArrowLeft")
+      this.moveLeft = false;
+    if (event.code === "ArrowRight" || event.key === "ArrowRight")
+      this.moveRight = false;
+  };
 
-    get pos(): Vector {
-        return this.position;
-    }
-
-    get image(): HTMLImageElement {
-        return this.paddleImage;
-    }
-
-    get isMovingLeft(): boolean {
-        return this.isMovingLeft;
-    }
-
-    get isMovingRight(): boolean {
-        return this.isMovingRight;
-    }
-
-    movePaddle() : void {
-       if (this.moveLeft && this.pos.x > 0) {
-           this.pos.x -= this.speed;
-       }
-       if (this.moveRight && this.pos.x + this.width < this.canvasWidth) {
-           this.pos.x += this.speed;
-       }
-    }
-
-    handleKeyUp = (event: KeyboardEvent): void => {
-        if (event.code === 'ArrowLeft' || event.key === 'ArrowLeft') this.moveLeft = false;
-        if (event.code === "ArrowRight" || event.key === "ArrowRight") this.moveRight = false;
-    }
-
-    handleKeyDown = (event: KeyboardEvent): void => {
-        if (event.code === 'ArrowLeft' || event.key === 'ArrowLeft') this.moveLeft = true;
-        if (event.code === "ArrowRight" || event.key === "ArrowRight") this.moveRight = true;
-    }
+  handleKeyDown = (event: KeyboardEvent): void => {
+    if (event.code === "ArrowLeft" || event.key === "ArrowLeft")
+      this.moveLeft = true;
+    if (event.code === "ArrowRight" || event.key === "ArrowRight")
+      this.moveRight = true;
+  };
 }
