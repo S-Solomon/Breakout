@@ -1,37 +1,22 @@
 import { Vector } from "../types";
+import { Sprite } from "../types";
 
-export class Brick {
-  private brickImage: HTMLImageElement = new Image();
+export class Brick extends Sprite {
+  private brickEnergy: number;
 
   constructor(
-    private brickWidth: number,
-    private brickHeight: number,
-    private position: Vector,
-    private brickEnergy: number,
+    brickWidth: number,
+    brickHeight: number,
+    position: Vector,
+    brickEnergy: number,
     image: string
   ) {
-    this.brickWidth = brickWidth;
-    this.brickHeight = brickHeight;
-    this.position = position;
+    super(brickWidth, brickHeight, image, position);
     this.brickEnergy = brickEnergy;
-    this.brickImage.src = image;
   }
 
-  // getters
-  get width(): number {
-    return this.brickWidth;
-  }
-
-  get height(): number {
-    return this.brickHeight;
-  }
-
-  get pos(): Vector {
-    return this.position;
-  }
-
-  get image(): HTMLImageElement {
-    return this.brickImage;
+  update(): void {
+    // Additional logic specific to bricks
   }
 
   get energy(): number {
