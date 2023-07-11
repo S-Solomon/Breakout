@@ -1,52 +1,35 @@
 import { Vector } from "../types";
+import { Sprite } from "../types";
 
-export class Ball {
-    private speed: Vector;
-    private ballImage: HTMLImageElement = new Image();
+export class Ball extends Sprite {
+  private speed: Vector;
 
-    constructor(
-        speed: number,
-        private ballSize: number,
-        private position: Vector,
-        image: string
-    ) {
-        this.ballSize = ballSize;
-        this.position = position;
-        this.speed = {
-            x: speed,
-            y: -speed,
-        };
-        this.ballImage.src = image;
-    }
+  constructor(
+    speed: number,
+    ballSize: number,
+    position: Vector,
+    image: string
+  ) {
+    super(ballSize, ballSize, image, position);
+    this.speed = {
+      x: speed,
+      y: -speed,
+    };
+  }
 
-    // Getters
-    get width(): number {
-        return this.ballSize;
-    }
+  update(): void {}
 
-    get height(): number {
-        return this.ballSize;
-    }
+  // Methods
+  changeYDirection(): void {
+    this.speed.y = -this.speed.y;
+  }
 
-    get pos(): Vector {
-        return this.position;
-    }
+  changeXDirection(): void {
+    this.speed.x = -this.speed.x;
+  }
 
-    get image(): HTMLImageElement {
-        return this.ballImage;
-    }
-
-    // Methods
-    changeYDirection(): void {
-        this.speed.y = -this.speed.y;
-    }
-
-    changeXDirection(): void {
-        this.speed.x = -this.speed.x;
-    }
-
-    moveBall(): void {
-        this.pos.x += this.speed.x;
-        this.pos.y += this.speed.y;
-    }
+  moveBall(): void {
+    this.position.x += this.speed.x;
+    this.position.y += this.speed.y;
+  }
 }
