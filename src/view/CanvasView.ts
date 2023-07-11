@@ -1,9 +1,8 @@
 import { Brick } from "../sprites/Brick";
-import { Paddle } from "../sprites/Paddle";
-import { Ball } from "../sprites/Ball";
+import { Sprite } from "../types";
+
 
 export class CanvasView {
-  // we need to access the canvas in the game loop function,so we set it as public
   canvas: HTMLCanvasElement;
   private context: CanvasRenderingContext2D | null;
   private scoreDisplay: HTMLObjectElement | null;
@@ -20,13 +19,10 @@ export class CanvasView {
 
   clear(): void {
     this.context?.clearRect(0, 0, this.canvas.width, this.canvas.height);
-    console.log("console cleared");
   }
 
   initStartButton(startFunction: (view: CanvasView) => void): void {
     this.start?.addEventListener("click", () => startFunction(this));
-
-    console.log("button clicked");
   }
 
   drawScore(score: number): void {
@@ -37,25 +33,19 @@ export class CanvasView {
     if (this.info) this.info.innerHTML = text;
   }
 
-  // fixed for all sprites
-  drawSprite(sprite: Brick | Paddle | Ball): void {
+  drawSprite(sprite: Sprite): void {
     if (!sprite) return;
 
-    // possible refactor - abstract it into separate sprite class
-    // and have other sprites extend from it
     this.context?.drawImage(
-      sprite.image,
-      sprite.pos.x,
-      sprite.pos.y,
-      sprite.width,
-      sprite.height
+      sprite.getImage(),
+      sprite.getPosition().x,
+      sprite.getPosition().y,
+      sprite.getWidth(),
+      sprite.getHeight()
     );
   }
 
-  // draw bricks on the canvas
   drawBricks(bricks: Brick[]): void {
-    console.log("drawing bricks");
-
     bricks.forEach((brick) => this.drawSprite(brick));
   }
 }
