@@ -29,7 +29,9 @@ export class Ball extends Sprite {
   }
 
   moveBall(): void {
-    this.position.x += this.speed.x;
-    this.position.y += this.speed.y;
+    this.position = {
+      x: this.position.x + this.speed.x,
+      y: this.position.y + this.speed.y,
+    };
   }
 }
