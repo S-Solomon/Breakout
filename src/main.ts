@@ -33,6 +33,7 @@ class Breakout {
   constructor() {
     this.view = new CanvasView("#playField");
     this.bricks = [];
+
     this.paddle = new Paddle(
       PADDLE_SPEED,
       PADDLE_WIDTH,
@@ -44,6 +45,7 @@ class Breakout {
       PADDLE_IMAGE,
       this.view.canvas.width
     );
+
     this.ball = new Ball(
       BALL_SPEED,
       BALL_SIZE,
